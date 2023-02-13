@@ -1,5 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import './App.css';
+import AddMovie from './components/Movies/AddMovie/AddMovie';
 import MoviesList from './components/Movies/MovieList/MovieList';
 import { MovieSwapiData } from './models/movie-swapi-data.model';
 import { MovieModel } from './models/movie.model';
@@ -53,11 +54,25 @@ export default function App() {
   }, [fetchMoviesHandler]);
 
 
-
+  async function addMovieHandler(movie: MovieModel) {
+    const response = await  fetch("http:localhost:5000/api/v1/movies", {
+      method: "POST",
+      body: JSON.stringify(movie),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    const data = await response.json();
+    console.log(data);
+    
+  }
 
 
   return (
     <Fragment>
+      <section>
+        <AddMovie onAddMovie={addMovieHandler}></AddMovie>
+      </section>
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>

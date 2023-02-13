@@ -7,8 +7,11 @@ import { MovieModel } from './models/movie.model';
 export default function App() {
 
   const [movies, setMovies] = useState<MovieModel[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function fetchMoviesHandler() {
+
+    setIsLoading(true);
 
     const response = await fetch("https://swapi.dev/api/films/")
     const data = await response.json();
@@ -24,6 +27,8 @@ export default function App() {
 
     setMovies(transformedMovies);
 
+    setIsLoading(false);
+
   };
 
 
@@ -34,7 +39,9 @@ return (
       <button onClick={fetchMoviesHandler}>Fetch Movies</button>
     </section>
     <section>
-      <MoviesList movies={movies} />
+      {(isLoading === false && movies.length > 0 )&& <MoviesList movies={movies} />}
+      {(isLoading === false && movies.length === 0) && <p>Found no movies!</p>}
+      {isLoading === true && <p>Loading ...</p>}
     </section>
   </Fragment>
 );

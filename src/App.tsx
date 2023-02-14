@@ -4,6 +4,7 @@ import AddMovie from './components/Movies/AddMovie/AddMovie';
 import MoviesList from './components/Movies/MovieList/MovieList';
 import { MovieSwapiData } from './models/movie-swapi-data.model';
 import { MovieModel } from './models/movie.model';
+import Loading from './UI/Loader/Loading';
 
 export default function App() {
 
@@ -55,7 +56,7 @@ export default function App() {
 
 
   async function addMovieHandler(movie: MovieModel) {
-    const response = await  fetch("http:localhost:5000/api/v1/movies", {
+    const response = await fetch("http:localhost:5000/api/v1/movies", {
       method: "POST",
       body: JSON.stringify(movie),
       headers: {
@@ -79,7 +80,7 @@ export default function App() {
       <section>
         {!isLoading && movies.length > 0 && <MoviesList movies={movies} />}
         {!isLoading && movies.length === 0 && !error && <p>Found no movies!</p>}
-        {isLoading && <p>Loading ...</p>}
+        {isLoading && <Loading />}
         {!isLoading && error && <p>{error}</p>}
       </section>
     </Fragment>

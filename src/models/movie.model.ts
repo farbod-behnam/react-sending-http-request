@@ -1,5 +1,5 @@
 export interface MovieModel {
-    id: number,
+    id?: string,
     title: string,
     openingText: string,
     releaseDate: string

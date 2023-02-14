@@ -18,7 +18,7 @@ export default function App() {
     let transformedMovies: MovieModel[] = []
 
     try {
-      const response = await fetch("https://swapi.dev/api/films/")
+      const response = await fetch("http:localhost:5000/api/v1/movies")
 
       if (response.ok === false) {
         throw new Error("Something went wrong!");
@@ -27,15 +27,15 @@ export default function App() {
       const data = await response.json();
 
 
-
-      transformedMovies = data.results.map((movieData: MovieSwapiData) => {
+      transformedMovies = data.map((movieData: MovieModel) => {
         return {
-          id: movieData.episode_id,
+          id: movieData.id,
           title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseDate: movieData.release_date
+          openingText: movieData.openingText,
+          releaseDate: movieData.releaseDate
         };
       });
+
     } catch (error) {
       const er = error as Error;
       setError(er.message);

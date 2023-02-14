@@ -19,7 +19,6 @@ export default function AddMovie(props: Props) {
 
   
       const movie: MovieModel = {
-        id: Math.random(),
         title: titleRef.current?.value || "no title input",
         openingText: openingTextRef.current?.value || "no opening text input",
         releaseDate: releaseDateRef.current?.value || "no release date input"
